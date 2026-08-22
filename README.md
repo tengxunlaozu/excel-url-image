@@ -38,6 +38,10 @@
 - **Auto Column Width** — Column width adjusts automatically based on image count
 - **Original Filenames** — Images saved to `excel_images/` with original filenames
 - **Progress & Logs** — Real-time progress bar and detailed processing log
+###  Image
+<p align="center">
+  <img src="https://s41.ax1x.com/2026/08/22/pmzW5y6.png" alt="Split">
+</p>
 
 ### 📦 Download
 
@@ -109,6 +113,10 @@ This project is licensed under the MIT License.
 - **列宽自适应** — 根据图片数量自动调整列宽
 - **保留原始文件名** — 图片下载到 `excel_images/` 目录，使用原始文件名
 - **进度与日志** — 实时进度条 + 详细处理日志
+###  Image
+<p align="center">
+  <img src="https://s41.ax1x.com/2026/08/22/pmzW5y6.png" alt="Split">
+</p>
 
 ### 📦 下载
 
