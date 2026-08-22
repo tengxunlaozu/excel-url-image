@@ -1,0 +1,24 @@
+# Excel
+*.xlsx
+*.xlsm
+*.xls
+
+# Images downloaded by the tool
+excel_images/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.spec
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

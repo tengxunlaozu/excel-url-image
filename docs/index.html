@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="multilingual">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel URL Image Processor / Excel 图片处理器</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.7;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+
+  /* ── Language Toggle ── */
+  .lang-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: #1a1a2e; color: #fff;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: 10px 24px; gap: 8px; font-size: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .lang-bar span { opacity: 0.6; }
+  .lang-btn {
+    background: transparent; border: 1px solid rgba(255,255,255,0.3);
+    color: #fff; padding: 4px 14px; border-radius: 4px;
+    cursor: pointer; font-size: 13px; transition: all 0.2s;
+  }
+  .lang-btn:hover { background: rgba(255,255,255,0.1); }
+  .lang-btn.active { background: #4a90d9; border-color: #4a90d9; font-weight: 600; }
+
+  /* ── Language Content ── */
+  .lang { display: none; padding-top: 50px; }
+  .lang.active { display: block; }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center; padding: 60px 0 40px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 16px; color: #fff; margin-bottom: 40px;
+  }
+  .hero h1 { font-size: 36px; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .hero p { font-size: 16px; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+  .hero .badge { display: inline-block; margin-top: 16px; }
+  .hero .badge img { height: 20px; }
+
+  /* ── Cards ── */
+  .card {
+    background: #fff; border-radius: 12px; padding: 32px;
+    margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .card h2 {
+    font-size: 22px; margin-bottom: 16px; padding-bottom: 12px;
+    border-bottom: 2px solid #4a90d9; display: inline-block;
+  }
+  .card h3 { font-size: 16px; margin: 20px 0 8px; color: #4a90d9; }
+  .card ul, .card ol { padding-left: 20px; margin: 8px 0; }
+  .card li { margin-bottom: 6px; }
+
+  /* ── Screenshot ── */
+  .screenshot {
+    border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;
+    margin: 16px 0; max-width: 100%;
+  }
+  .screenshot img { width: 100%; display: block; }
+
+  /* ── Code ── */
+  code {
+    background: #f4f4f8; padding: 2px 8px; border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; font-size: 13px;
+  }
+  pre {
+    background: #1e1e2e; color: #cdd6f4; padding: 16px 20px; border-radius: 8px;
+    overflow-x: auto; font-size: 13px; line-height: 1.6; margin: 12px 0;
+  }
+  pre code { background: none; padding: 0; color: inherit; }
+
+  /* ── Table ── */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+  th { background: #f8f9fa; font-weight: 600; color: #555; }
+
+  /* ── Footer ── */
+  .footer { text-align: center; padding: 40px 0; color: #999; font-size: 14px; }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 12px; }
+    .card { padding: 20px; }
+    .hero h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Language Bar ===== -->
+<div class="lang-bar" id="langBar">
+  <span>🌐</span>
+  <button class="lang-btn active" onclick="switchLang('en')" id="btn-en">EN</button>
+  <button class="lang-btn" onclick="switchLang('zh')" id="btn-zh">中文</button>
+</div>
+
+<!-- ===== English ===== -->
+<div class="lang active" id="lang-en">
+  <div class="container">
+    <div class="hero">
+      <h1>Excel URL Image Processor</h1>
+      <p>Batch convert image URLs in Excel cells into embedded images — with a beautiful PySide6 GUI.</p>
+      <div class="badge">
+        <img src="https://img.shields.io/badge/Python-3.13+-blue?logo=python" alt="Python">
+        <img src="https://img.shields.io/badge/PySide6-6.11-green?logo=qt" alt="PySide6">
+        <img src="https://img.shields.io/badge/license-MIT-orange" alt="License">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>✨ Features</h2>
+      <ul>
+        <li><strong>GUI Operation</strong> — Built with PySide6, no command-line skills needed</li>
+        <li><strong>Batch Processing</strong> — Process all image URLs in a column at once</li>
+        <li><strong>Multi-Image Support</strong> — One cell can contain multiple URLs, automatically arranged side by side</li>
+        <li><strong>Auto Column Width</strong> — Column width adjusts automatically based on image count</li>
+        <li><strong>Original Filenames</strong> — Images saved to <code>excel_images/</code> with original filenames</li>
+        <li><strong>Progress &amp; Logs</strong> — Real-time progress bar and detailed processing log</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📸 Screenshot</h2>
+      <div class="screenshot">
+        <img src="https://raw.githubusercontent.com/tengxunlaozu/excel-url-image/main/docs/screenshot.png" alt="Screenshot" onerror="this.style.display='none'">
+      </div>
+      <p style="color:#999;font-size:13px;text-align:center;margin-top:8px;">※ Screenshot placeholder — replace with your own image</p>
+    </div>
+
+    <div class="card">
+      <h2>📦 Download</h2>
+      <p>Download the latest packaged <strong>Excel图片处理器.exe</strong> from the <a href="https://github.com/tengxunlaozu/excel-url-image/releases">Releases page</a> — no Python installation required.</p>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Quick Start</h2>
+      <h3>Option 1: Run the Pre-built EXE</h3>
+      <ol>
+        <li>Download <code>Excel图片处理器.exe</code> from <a href="https://github.com/tengxunlaozu/excel-url-image/releases">Releases</a></li>
+        <li>Double-click to run</li>
+        <li>Select your Excel file, enter the column letter (e.g., <code>E</code>), and click <strong>Start</strong></li>
+      </ol>
+
+      <h3>Option 2: Run from Source</h3>
+      <pre><code># Clone the repo
+git clone https://github.com/tengxunlaozu/excel-url-image.git
+cd excel-url-image
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the GUI
+python excel_image_processor_gui.py</code></pre>
+    </div>
+
+    <div class="card">
+      <h2>🖥️ GUI Overview</h2>
+      <table>
+        <tr><th>Section</th><th>Description</th></tr>
+        <tr><td><strong>File Settings</strong></td><td>Browse for input Excel file; output path auto-generated</td></tr>
+        <tr><td><strong>Column Setting</strong></td><td>Enter the column letter containing image URLs (e.g., E)</td></tr>
+        <tr><td><strong>Progress Bar</strong></td><td>Shows current processing progress</td></tr>
+        <tr><td><strong>Log Panel</strong></td><td>Real-time logs with dark terminal-style display</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>📁 Output Structure</h2>
+      <pre><code>your-project/
+├── excel_images/            # Downloaded images (original filenames)
+│   ├── admin-check_xxx.jpeg
+│   └── ...
+└── 行政检查_处理后_20260820_102916.xlsx  # Processed Excel file</code></pre>
+    </div>
+
+    <div class="card">
+      <h2>⚙️ Requirements</h2>
+      <ul>
+        <li>Python 3.13+</li>
+        <li>PySide6</li>
+        <li>openpyxl</li>
+        <li>requests</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📄 License</h2>
+      <p>This project is licensed under the MIT License.</p>
+    </div>
+
+    <div class="footer">
+      Made with ❤️ by <a href="https://github.com/tengxunlaozu">tengxunlaozu</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Chinese ===== -->
+<div class="lang" id="lang-zh">
+  <div class="container">
+    <div class="hero">
+      <h1>Excel 图片处理器</h1>
+      <p>将 Excel 单元格中的图片链接批量下载并嵌入为图片——附带精美的 PySide6 图形界面。</p>
+      <div class="badge">
+        <img src="https://img.shields.io/badge/Python-3.13+-blue?logo=python" alt="Python">
+        <img src="https://img.shields.io/badge/PySide6-6.11-green?logo=qt" alt="PySide6">
+        <img src="https://img.shields.io/badge/license-MIT-orange" alt="License">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>✨ 功能特点</h2>
+      <ul>
+        <li><strong>图形界面操作</strong> — 基于 PySide6 构建，无需命令行知识</li>
+        <li><strong>批量处理</strong> — 一次性处理整列的图片链接</li>
+        <li><strong>多图支持</strong> — 一个单元格可含多个链接，自动并排排列</li>
+        <li><strong>列宽自适应</strong> — 根据图片数量自动调整列宽</li>
+        <li><strong>保留原始文件名</strong> — 图片下载到 <code>excel_images/</code> 目录，使用原始文件名</li>
+        <li><strong>进度与日志</strong> — 实时进度条 + 详细处理日志</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📸 界面截图</h2>
+      <div class="screenshot">
+        <img src="https://raw.githubusercontent.com/tengxunlaozu/excel-url-image/main/docs/screenshot.png" alt="界面截图" onerror="this.style.display='none'">
+      </div>
+      <p style="color:#999;font-size:13px;text-align:center;margin-top:8px;">※ 截图占位符——请替换为自己的截图</p>
+    </div>
+
+    <div class="card">
+      <h2>📦 下载</h2>
+      <p>从 <a href="https://github.com/tengxunlaozu/excel-url-image/releases">Releases 页面</a> 下载最新打包好的 <strong>Excel图片处理器.exe</strong>，无需安装 Python 即可运行。</p>
+    </div>
+
+    <div class="card">
+      <h2>🚀 快速开始</h2>
+      <h3>方式一：直接运行 EXE</h3>
+      <ol>
+        <li>从 <a href="https://github.com/tengxunlaozu/excel-url-image/releases">Releases</a> 下载 <code>Excel图片处理器.exe</code></li>
+        <li>双击运行</li>
+        <li>选择 Excel 文件，输入列字母（如 <code>E</code>），点击「开始处理」</li>
+      </ol>
+
+      <h3>方式二：源码运行</h3>
+      <pre><code># 克隆仓库
+git clone https://github.com/tengxunlaozu/excel-url-image.git
+cd excel-url-image
+
+# 安装依赖
+pip install -r requirements.txt
+
+# 运行 GUI
+python excel_image_processor_gui.py</code></pre>
+    </div>
+
+    <div class="card">
+      <h2>🖥️ 界面说明</h2>
+      <table>
+        <tr><th>功能区域</th><th>说明</th></tr>
+        <tr><td><strong>文件设置</strong></td><td>浏览选择输入 Excel 文件；输出路径自动生成</td></tr>
+        <tr><td><strong>列设置</strong></td><td>输入图片链接所在的列字母（如 E）</td></tr>
+        <tr><td><strong>进度条</strong></td><td>实时显示当前处理进度</td></tr>
+        <tr><td><strong>日志面板</strong></td><td>深色终端风格，实时输出详细处理日志</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>📁 输出结构</h2>
+      <pre><code>your-project/
+├── excel_images/            # 下载的图片（原始文件名）
+│   ├── admin-check_xxx.jpeg
+│   └── ...
+└── 行政检查_处理后_20260820_102916.xlsx  # 处理后的 Excel 文件</code></pre>
+    </div>
+
+    <div class="card">
+      <h2>⚙️ 依赖要求</h2>
+      <ul>
+        <li>Python 3.13+</li>
+        <li>PySide6</li>
+        <li>openpyxl</li>
+        <li>requests</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📄 许可证</h2>
+      <p>本项目基于 MIT 许可证开源。</p>
+    </div>
+
+    <div class="footer">
+      ❤️ 由 <a href="https://github.com/tengxunlaozu">tengxunlaozu</a> 制作
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Language Switching ──
+function switchLang(lang) {
+  document.querySelectorAll('.lang').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('lang-' + lang).classList.add('active');
+  document.getElementById('btn-' + lang).classList.add('active');
+  localStorage.setItem('preferredLang', lang);
+  document.documentElement.lang = lang;
+}
+
+// ── Auto-detect browser language ──
+(function() {
+  const saved = localStorage.getItem('preferredLang');
+  if (saved) {
+    if (saved === 'zh') switchLang('zh');
+    return;
+  }
+  const browserLang = navigator.language || navigator.userLanguage || '';
+  if (browserLang.startsWith('zh')) {
+    switchLang('zh');
+  }
+})();
+</script>
+
+</body>
+</html>
