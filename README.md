@@ -14,8 +14,8 @@
 </p>
 
 <p align="center">
-  🖼️ Batch convert image URLs in Excel cells into embedded images — with a beautiful PySide6 GUI.<br>
-  🖼️ 将 Excel 单元格中的图片链接批量下载并嵌入为图片——附带精美的 PySide6 图形界面。
+  🖼️ Batch convert image URLs in Excel cells into embedded images — with PySide6 GUI.<br>
+  🖼️ 将 Excel 单元格中的图片链接批量下载并嵌入为图片——附带 PySide6 图形界面。
 </p>
 
 <p align="center">
